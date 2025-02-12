@@ -1,6 +1,6 @@
 {
   "name": "react-input-masker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "description": "React Input Masker – Component para inputs mascarados com formatação numérica e suporte a máscaras genéricas e customizadas.",
   "main": "dist/react-input-masker.umd.js",
@@ -9,6 +9,14 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tharles-dev/react-input-masker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tharles-dev/react-input-masker/issues"
+  },
+  "homepage": "https://github.com/tharles-dev/react-input-masker#readme",
   "scripts": {
     "dev": "vite",
     "build": "tsc --emitDeclarationOnly && vite build",

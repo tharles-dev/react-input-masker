@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  forwardRef,
-  InputHTMLAttributes,
-  ElementType,
-} from "react";
+import React, { forwardRef, InputHTMLAttributes, ElementType } from "react";
 
 export interface MaskedInputProps
   extends InputHTMLAttributes<HTMLInputElement> {
@@ -13,68 +8,62 @@ export interface MaskedInputProps
 }
 
 export const MaskedInput = forwardRef<HTMLInputElement, MaskedInputProps>(
-  ({ mask, formatter, as: Component = "input", onChange, ...rest }, ref) => {
-    const [value, setValue] = useState<string>("");
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const raw = e.target.value;
+  (
+    { mask, formatter, as: Component = "input", value = "", onChange, ...rest },
+    ref
+  ) => {
+    const formatValue = (raw: string) => {
       let formattedValue = raw;
 
       if (formatter) {
-        // Formatter customizado tem prioridade
         formattedValue = formatter(raw);
       } else if (mask) {
-        // Se a máscara for uma string, aplica máscara genérica (ex: CPF)
         if (typeof mask === "string") {
           const digits = raw.replace(/\D/g, "");
           formattedValue = applyGenericMask(digits, mask);
-        }
-        // Se for array, aplica formatação numérica simples
-        else if (Array.isArray(mask)) {
+        } else if (Array.isArray(mask)) {
           formattedValue = formatNumeric(raw);
         }
       }
+      return formattedValue;
+    };
 
-      setValue(formattedValue);
+    const displayValue = formatValue(String(value));
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const raw = e.target.value;
+      const formatted = formatValue(raw);
 
       if (onChange) {
-        // Propaga o evento com o valor formatado
         onChange({
           ...e,
-          target: { ...e.target, value: formattedValue },
+          target: { ...e.target, value: formatted },
         });
       }
     };
 
     return (
-      <Component ref={ref} {...rest} value={value} onChange={handleChange} />
+      <Component
+        ref={ref}
+        {...rest}
+        value={displayValue}
+        onChange={handleChange}
+      />
     );
   }
 );
 
-// Aplica máscara genérica onde '#' representa um dígito.
-// Exemplo: mask "###.###.###-##" e valor "12345678901" gera "123.456.789-01"
+// Função de máscara genérica: substitui '#' pelos dígitos
 function applyGenericMask(value: string, mask: string): string {
   let result = "";
   let valueIndex = 0;
   for (let i = 0; i < mask.length && valueIndex < value.length; i++) {
-    if (mask[i] === "#") {
-      result += value[valueIndex++];
-    } else {
-      result += mask[i];
-    }
+    result += mask[i] === "#" ? value[valueIndex++] : mask[i];
   }
   return result;
 }
 
-// Formatação numérica simples para duas máscaras:
-// - Se o valor tiver até 3 dígitos, aplica a máscara "#.##"
-// - Se tiver 4 ou mais dígitos, usa "##.##"
-// Exemplos:
-// "5"    → "5"
-// "55"   → "5.5"
-// "555"  → "5.55"
-// "5555" → "55.55"
+// Formatação numérica simples
 function formatNumeric(value: string): string {
   const raw = value.replace(/\D/g, "");
   if (raw.length === 0) return "";
