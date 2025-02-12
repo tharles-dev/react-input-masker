@@ -1,8 +1,14 @@
 {
   "name": "react-input-masker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "React Input Masker – Component para inputs mascarados com formatação numérica e suporte a máscaras genéricas e customizadas.",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

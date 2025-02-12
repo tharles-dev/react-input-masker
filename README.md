@@ -17,7 +17,9 @@ If this component is part of your project, simply add the `MaskedInput.tsx` file
 > **Nota:** Caso o componente seja disponibilizado via npm, use:
 >
 > ```bash
-> npm install masked-input-library
+> npm install react-input-masker
+> or
+> npm install react-input-masker --legacy-peer-deps
 > ```
 
 ## Usage

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2019",
     "module": "CommonJS",
-    "jsx": "react", // ou "react-jsx" se estiver usando o novo transform do React
+    "jsx": "react", 
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,

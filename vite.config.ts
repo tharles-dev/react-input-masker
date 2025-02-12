@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     lib: {
-      entry: "src/main.tsx",
+      entry: "src/index.ts",
       name: "ReactInputMasker",
       fileName: (format) => `react-input-masker.${format}.ts`,
       formats: ["es", "umd"],
