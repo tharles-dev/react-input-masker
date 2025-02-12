@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "CommonJS",
+    "jsx": "react", // ou "react-jsx" se estiver usando o novo transform do React
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "noEmit": true
+  },
+  "include": ["src", "test"]
+}
